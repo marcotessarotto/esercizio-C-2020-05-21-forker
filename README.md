@@ -9,5 +9,5 @@ poi lancia M threads.
 "fase 2" vuol dire: scrivere nel file il messaggio "fase 2, thread id=<tid>, dopo la barriera" poi dormire per 10 millisecondi, scrivere nel file il messggio "thread id=<tid> bye!".
  
 
-per ogni thread: effettuare "fase 1", poi aspettare che tutti i thread abbiano completato la fase 1 (barriera); poi effettuare "fase 2" e terminare il thread.
+per ogni thread: effettuare "fase 1", poi aspettare che tutti i thread abbiano completato la fase 1 (barriera: little book of sempahores, pag. 29); poi effettuare "fase 2" e terminare il thread.
 
