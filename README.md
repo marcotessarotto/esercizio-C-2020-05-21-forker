@@ -1,4 +1,4 @@
-# esercizio-C-2020-05-21-forker
+# esercizio-C-2020-05-21-threads-barrier
 
 un processo apre un file in scrittura (se esiste già sovrascrive i contenuti del file),
 poi lancia M threads.
