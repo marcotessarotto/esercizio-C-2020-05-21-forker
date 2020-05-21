@@ -1,0 +1,30 @@
+fase 1, thread id=139691559864064, sleep period=0.592654 secondi
+fase 1, thread id=139691534685952, sleep period=0.833324 secondi
+fase 1, thread id=139691551471360, sleep period=1.005668 secondi
+fase 1, thread id=139691593434880, sleep period=1.183148 secondi
+fase 1, thread id=139691526293248, sleep period=1.661909 secondi
+fase 1, thread id=139691543078656, sleep period=2.304688 secondi
+fase 1, thread id=139691585042176, sleep period=2.349297 secondi
+fase 1, thread id=139691576649472, sleep period=2.395320 secondi
+fase 1, thread id=139691601827584, sleep period=2.520563 secondi
+fase 1, thread id=139691568256768, sleep period=2.734942 secondi
+fase 2, thread id=139691551471360, dopo la barriera
+fase 2, thread id=139691568256768, dopo la barriera
+fase 2, thread id=139691559864064, dopo la barriera
+fase 2, thread id=139691534685952, dopo la barriera
+fase 2, thread id=139691601827584, dopo la barriera
+fase 2, thread id=139691593434880, dopo la barriera
+fase 2, thread id=139691526293248, dopo la barriera
+fase 2, thread id=139691585042176, dopo la barriera
+fase 2, thread id=139691576649472, dopo la barriera
+fase 2, thread id=139691543078656, dopo la barriera
+thread id=139691568256768 bye!
+thread id=139691551471360 bye!
+thread id=139691559864064 bye!
+thread id=139691601827584 bye!
+thread id=139691593434880 bye!
+thread id=139691585042176 bye!
+thread id=139691526293248 bye!
+thread id=139691534685952 bye!
+thread id=139691576649472 bye!
+thread id=139691543078656 bye!
