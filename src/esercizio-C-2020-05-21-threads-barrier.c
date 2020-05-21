@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 // for open
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,7 +18,7 @@ void * thread_function();
 char * concat(const char *s1, const char *s2);
 
 
-#define M 2
+#define M 10
 
 sem_t semaphore;
 pthread_barrier_t thread_barrier;
@@ -67,15 +66,21 @@ int main() {
 		}
 	}
 
-	while(1){
-
+	// join M threads
+	for(int i=0 ; i<M ; i++){
+		int res3 = pthread_join(threads[i], NULL);
+		if(res3 != 0){
+			perror("pthread_join()\n");
+			exit(1);
+		}
 	}
-
 
 	if(close(fd) == -1){
 		perror("close()\n");
 		exit(1);
 	}
+
+	printf("bye\n");
 
 	exit(0);
 }
@@ -83,11 +88,9 @@ int main() {
 
 void * thread_function(){
 
-
 	int intervall = (int)((double)random() / RAND_MAX * 3000000);
-	printf("%d\n", intervall);
 
-	usleep(intervall); // like sleep()
+	usleep(intervall); // like sleep() but using microseconds as unit
 
 	if (sem_wait(&semaphore) == -1) {
 		perror("sem_wait");
@@ -117,16 +120,13 @@ void * thread_function(){
 
 	char * str5 = " secondi\n";
 
-	char * final_str = concat(concat(concat(concat(str1, str2), str3), str4), str5);
+	char * final_str1 = concat(concat(concat(concat(str1, str2), str3), str4), str5);
 
-	res = write(fd, final_str, strlen(final_str));
+	res = write(fd, final_str1, strlen(final_str1));
 	if(res == -1){
 		perror("write()\n");
 		exit(1);
 	}
-
-	//printf("%s\n", final_str);
-
 
 	// end critical section
 	if (sem_post(&semaphore) == -1) {
@@ -134,11 +134,34 @@ void * thread_function(){
 		exit(EXIT_FAILURE);
 	}
 
-
 	int s = pthread_barrier_wait(&thread_barrier);
+	// phase 2
 
-	printf("critical point\n");
+	char * str6 = "fase 2, thread id=";
 
+	char * str7 = ", dopo la barriera\n";
+
+	char * final_str2 = concat(concat(str6, str2), str7);
+
+	res = write(fd, final_str2, strlen(final_str2));
+	if(res == -1){
+		perror("write()\n");
+		exit(1);
+	}
+
+
+	usleep(10000); // like sleep() for 10 milliseconds
+
+	char * str8 = "thread id=";
+
+	char * str9 = " bye!\n";
+
+	char * final_str3 = concat(concat(str8, str2), str9);
+	res = write(fd, final_str3, strlen(final_str3));
+	if(res == -1){
+		perror("write()\n");
+		exit(1);
+	}
 
 	return NULL;
 }
