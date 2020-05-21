@@ -1,0 +1,2 @@
+fase 1, thread id=140666989520640, sleep period=1.183148 secondi
+fase 1, thread id=140666997913344, sleep period=2.520563 secondi

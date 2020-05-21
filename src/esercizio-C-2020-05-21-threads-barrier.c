@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 // for open
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -14,19 +16,19 @@
 
 
 void * thread_function();
-int random_number(int min_num, int max_num);
+char * concat(const char *s1, const char *s2);
 
 
 #define M 2
 
 sem_t semaphore;
-
 pthread_barrier_t thread_barrier;
+int fd;
 
 int main() {
 
 	// open a file
-	int fd = open("log.txt",
+	fd = open("log.txt",
 			  O_CREAT | O_TRUNC | O_WRONLY,
 			  S_IRUSR | S_IWUSR // l'utente proprietario del file avrà i permessi di lettura e scrittura sul nuovo file
 			 );
@@ -91,10 +93,42 @@ void * thread_function(){
 		perror("sem_wait");
 		exit(EXIT_FAILURE);
 	}
+	// start critical section
 
-	printf("Thread : %lu\n", pthread_self());
+	char * str1 = "fase 1, thread id=";
+
+	char str2 [20];
+	long unsigned id = pthread_self();
+	int res = sprintf(str2, "%lu", id);
+	if(res < 0){
+		perror("sprintf()\n");
+		exit(1);
+	}
+
+	char * str3 = ", sleep period=";
+
+	double sec = (double)intervall / 1000000;
+	char str4[20];
+	res = sprintf(str4, "%lf", sec);
+	if(res < 0){
+		perror("sprintf()\n");
+		exit(1);
+	}
+
+	char * str5 = " secondi\n";
+
+	char * final_str = concat(concat(concat(concat(str1, str2), str3), str4), str5);
+
+	res = write(fd, final_str, strlen(final_str));
+	if(res == -1){
+		perror("write()\n");
+		exit(1);
+	}
+
+	//printf("%s\n", final_str);
 
 
+	// end critical section
 	if (sem_post(&semaphore) == -1) {
 		perror("sem_post");
 		exit(EXIT_FAILURE);
@@ -103,26 +137,19 @@ void * thread_function(){
 
 	int s = pthread_barrier_wait(&thread_barrier);
 
-	printf("critical points\n");
+	printf("critical point\n");
 
 
 	return NULL;
 }
 
-int random_number(int min_num, int max_num)
-{
-    int result = 0, low_num = 0, hi_num = 0;
-
-    if (min_num < max_num)
-    {
-        low_num = min_num;
-        hi_num = max_num + 1; // include max_num in output
-    } else {
-        low_num = max_num + 1; // include max_num in output
-        hi_num = min_num;
+char * concat(const char *s1, const char *s2){
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
+    if(result == NULL){
+    	perror("malloc()");
+    	exit(1);
     }
-
-    srand(time(NULL));
-    result = (rand() % (hi_num - low_num)) + low_num;
+    strcpy(result, s1);
+    strcat(result, s2);
     return result;
 }
