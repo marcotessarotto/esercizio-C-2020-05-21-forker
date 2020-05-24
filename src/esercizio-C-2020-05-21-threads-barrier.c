@@ -23,13 +23,8 @@ void *thread_func(void *ptr)
 {
 	int *fd = (int *) ptr;
 	pthread_t tid = pthread_self();
-	time_t t;
-	time(&t);
-	if (t == ((time_t) -1))
-		err_exit("time() error");
 
-	srand((unsigned) t);
-	char seconds = rand() % 3;
+	char seconds = rand() % 4;
 	sleep(seconds);
 
 	if (pthread_mutex_lock(&mutex))
@@ -39,11 +34,6 @@ void *thread_func(void *ptr)
 		err_exit("dprintf() error");
 	if (pthread_mutex_unlock(&mutex))
 		err_exit("pthread_mutex_unlock() error");
-
-	struct timespec tspec = {
-			.tv_sec = 0,
-			.tv_nsec = 10000000,
-	};
 
 	int ret = pthread_barrier_wait(&barrier);
 	if (!(ret == PTHREAD_BARRIER_SERIAL_THREAD || ret == 0))
@@ -57,8 +47,8 @@ void *thread_func(void *ptr)
 	if (pthread_mutex_unlock(&mutex))
 		err_exit("pthread_mutex_unlock() error");
 
-	if (nanosleep(&tspec, NULL))
-		err_exit("nanosleep() error");
+	if (usleep(10000))
+		err_exit("usleep() error");
 
 	if (pthread_mutex_lock(&mutex))
 		err_exit("pthread_mutex_lock() error");
@@ -67,6 +57,7 @@ void *thread_func(void *ptr)
 		err_exit("dprintf() error");
 	if (pthread_mutex_unlock(&mutex))
 		err_exit("pthread_mutex_unlock() error");
+
 	return NULL;
 }
 
@@ -75,6 +66,12 @@ int main(int argc, char *argv[])
 	int fd = open(argv[1], O_RDWR | O_TRUNC | O_CREAT, 00644);
 	if (fd == -1)
 		err_exit("open() error");
+
+	time_t t;
+	time(&t);
+	if (t == ((time_t) -1))
+		err_exit("time() error");
+	srand((unsigned) t);
 
 	if (pthread_barrier_init(&barrier, NULL, M))
 		err_exit("pthread_barrier_init() error");
@@ -93,6 +90,11 @@ int main(int argc, char *argv[])
 	if (pthread_barrier_destroy(&barrier))
 		err_exit("pthread_barrier_destroy() error");
 
-	close(fd);
+	if (pthread_mutex_destroy(&mutex))
+		err_exit("pthread_mutex_destroy() error");
+
+	if (close(fd))
+		err_exit("close() error");
+
 	return 0;
 }
