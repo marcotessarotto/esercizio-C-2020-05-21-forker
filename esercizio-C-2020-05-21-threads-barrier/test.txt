@@ -1,0 +1,32 @@
+"fase 1"(quarantena), thread_id = 140115617593088, sleep period = 0secondi 
+"fase 1"(quarantena), thread_id = 140115625985792, sleep period = 0secondi 
+"fase 1"(quarantena), thread_id = 140115600807680, sleep period = 0secondi 
+"fase 1"(quarantena), thread_id = 140115642771200, sleep period = 0secondi 
+"fase 1"(quarantena), thread_id = 140115609200384, sleep period = 1secondi 
+"fase 1"(quarantena), thread_id = 140115634378496, sleep period = 1secondi 
+"fase 1"(quarantena), thread_id = 140115651163904, sleep period = 1secondi 
+"fase 1"(quarantena), thread_id = 140115659556608, sleep period = 1secondi 
+"fase 1"(quarantena), thread_id = 140115667949312, sleep period = 1secondi 
+"fase 1"(quarantena), thread_id = 140115676342016, sleep period = 2secondi 
+
+"fase 2"(riapertura), thread_id = 140115676342016, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115617593088, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115625985792, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115600807680, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115642771200, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115609200384, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115634378496, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115651163904, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115659556608, dopo la barriera
+"fase 2"(riapertura), thread_id = 140115667949312, dopo la barriera
+
+thread_id = 140115659556608, bye!
+thread_id = 140115600807680, bye!
+thread_id = 140115651163904, bye!
+thread_id = 140115609200384, bye!
+thread_id = 140115625985792, bye!
+thread_id = 140115634378496, bye!
+thread_id = 140115642771200, bye!
+thread_id = 140115617593088, bye!
+thread_id = 140115667949312, bye!
+thread_id = 140115676342016, bye!
